@@ -62,9 +62,9 @@ class bezierCurves: SCNScene {
             let cyanMaterial = SCNMaterial()
             cyanMaterial.diffuse.contents = UIColor.green
             
-            path.move(to: CGPoint(x: x1+randomDist1, y: y1+randomDist2))
-            path.addLine(to: CGPoint(x: x2, y: y2))
-            path.addLine(to: CGPoint(x: z1, y: z2))
+            path.move(to: CGPoint(x: 10, y: 3))
+            path.addLine(to: CGPoint(x: 0, y: 0.1))
+            path.addLine(to: CGPoint(x: 0.3, y: 1))
             path.close()
             
             let shape = SCNShape(path: path, extrusionDepth: 0.75)

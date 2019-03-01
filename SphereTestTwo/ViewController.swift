@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         scnView.scene = FirstScene()
         scnView.backgroundColor = UIColor.black
         
-        scnView.autoenablesDefaultLighting = false
+        scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
         

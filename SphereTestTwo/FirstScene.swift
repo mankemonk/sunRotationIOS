@@ -13,36 +13,75 @@ class FirstScene: SCNScene {
     override init() {
         super.init()
         
+        // THE SPHERE
         
         let sphereGeometry = SCNSphere(radius: 1)
         sphereGeometry.firstMaterial?.diffuse.contents = UIColor.init(red: 1, green: 0.1, blue: 0, alpha: 0.8)
         let sphereNode = SCNNode(geometry: sphereGeometry)
-        sphereNode.rotation = SCNVector4(x: 0, y: 100, z: 0, w: 0)
-        sphereNode.runAction(SCNAction.rotateBy(x: 0, y: 0, z: 0, duration: .infinity))
         sphereNode.castsShadow = true
-        sphereNode.opacity = 0.25
+        sphereNode.opacity = 0.85
         
         self.rootNode.addChildNode(sphereNode)
-
+        
+        // Make the sphere rotate around y-axis.
+        let spinSphere = CABasicAnimation(keyPath: "rotation")
+        spinSphere.fromValue = NSValue(scnVector4: SCNVector4(0, 1, 0, 300))
+        spinSphere.toValue = NSValue(scnVector4: SCNVector4(0, 1, 0, 250))
+        spinSphere.duration = 430
+        spinSphere.repeatCount = .infinity
+        
+        sphereNode.addAnimation(spinSphere, forKey: "spinaround")
+        
+        // AMBIENT LIGHT
+        
+        let lightAmbientNode = SCNNode()
+        lightAmbientNode.light = SCNLight()
+        lightAmbientNode.light?.type = .ambient
+        lightAmbientNode.light?.intensity = 1000
+        lightAmbientNode.light?.color = UIColor.white
+        
+        self.rootNode.addChildNode(lightAmbientNode)
+        
+        // OMNI, BUT NOT REALLY
+        
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
-        lightNode.light?.type = .spot
-        lightNode.position = SCNVector3(x: 100, y: 0, z: 300)
-        lightNode.light?.intensity = 4000
+        lightNode.light?.type = .omni
+        lightNode.position = SCNVector3(x: 100, y: 0, z: 30)
+        lightNode.light?.intensity = 500
         lightNode.light?.color = UIColor.init(white: 1, alpha: 0.7)
-        lightNode.runAction(SCNAction.rotateBy(x: 200, y: 100, z: 300, duration: .infinity))
+        
+        // its spins too
+        let spin2 = CABasicAnimation(keyPath: "rotation")
+        spin2.fromValue = NSValue(scnVector4: SCNVector4(-200, 0, 0, 0))
+        spin2.toValue = NSValue(scnVector4: SCNVector4(200, 0, 0, 0))
+        spin2.duration = 200
+        spin2.repeatCount = .infinity
+        
+        lightNode.addAnimation(spin2, forKey: "spinaround")
         
         self.rootNode.addChildNode(lightNode)
+        
+        // SPOT WHO TURNS
         
         let secondLightNode = SCNNode()
         secondLightNode.light = SCNLight()
         secondLightNode.light?.type = .spot
-        secondLightNode.position = SCNVector3(x: 300, y: 200, z: 0)
-        secondLightNode.light?.intensity = 5000
-        secondLightNode.light?.color = UIColor.white
-        lightNode.runAction(SCNAction.rotateBy(x: 200, y: 200, z: 0, duration: .infinity))
+        secondLightNode.position = SCNVector3(x: 30, y: 0, z: 100)
+        secondLightNode.light?.intensity = 4000
+        secondLightNode.light?.color = UIColor.init(white: 1, alpha: 0.35)
         
         self.rootNode.addChildNode(secondLightNode)
+        
+        // Mke the light rotate around the z-axis
+        let spin = CABasicAnimation(keyPath: "rotation")
+        spin.fromValue = NSValue(scnVector4: SCNVector4(x: 200, y: 0, z: 0, w: 0))
+        spin.toValue = NSValue(scnVector4: SCNVector4(x: -200, y: 0, z: 0, w: 1))
+        spin.duration = 35
+        spin.repeatCount = .infinity
+
+        secondLightNode.addAnimation(spin, forKey: "spinaround")
+        
 
         
 //
