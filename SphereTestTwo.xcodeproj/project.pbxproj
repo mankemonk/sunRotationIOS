@@ -16,8 +16,8 @@
 		E43AD8362224130400A08832 /* SphereTestTwoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43AD8352224130400A08832 /* SphereTestTwoUITests.swift */; };
 		E43AD8452224132C00A08832 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43AD8442224132C00A08832 /* SceneKit.framework */; };
 		E43AD8472224137A00A08832 /* FirstScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43AD8462224137A00A08832 /* FirstScene.swift */; };
+		E44F2E872249334700085152 /* drawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44F2E862249334700085152 /* drawLine.swift */; };
 		E4B3A4262226A68300B9A121 /* bezierCurves.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3A4252226A68300B9A121 /* bezierCurves.swift */; };
-		E4B3A4282226AA3100B9A121 /* CurvesBez.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3A4272226AA3100B9A121 /* CurvesBez.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +53,8 @@
 		E43AD8372224130400A08832 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E43AD8442224132C00A08832 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		E43AD8462224137A00A08832 /* FirstScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScene.swift; sourceTree = "<group>"; };
+		E44F2E862249334700085152 /* drawLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drawLine.swift; sourceTree = "<group>"; };
 		E4B3A4252226A68300B9A121 /* bezierCurves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bezierCurves.swift; sourceTree = "<group>"; };
-		E4B3A4272226AA3100B9A121 /* CurvesBez.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvesBez.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +114,8 @@
 				E43AD81E2224130400A08832 /* LaunchScreen.storyboard */,
 				E43AD8212224130400A08832 /* Info.plist */,
 				E43AD8462224137A00A08832 /* FirstScene.swift */,
+				E44F2E862249334700085152 /* drawLine.swift */,
 				E4B3A4252226A68300B9A121 /* bezierCurves.swift */,
-				E4B3A4272226AA3100B9A121 /* CurvesBez.swift */,
 			);
 			path = SphereTestTwo;
 			sourceTree = "<group>";
@@ -279,9 +279,9 @@
 			files = (
 				E43AD8182224130300A08832 /* ViewController.swift in Sources */,
 				E43AD8472224137A00A08832 /* FirstScene.swift in Sources */,
-				E4B3A4282226AA3100B9A121 /* CurvesBez.swift in Sources */,
 				E4B3A4262226A68300B9A121 /* bezierCurves.swift in Sources */,
 				E43AD8162224130300A08832 /* AppDelegate.swift in Sources */,
+				E44F2E872249334700085152 /* drawLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

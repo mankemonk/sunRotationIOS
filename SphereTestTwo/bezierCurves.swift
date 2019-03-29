@@ -17,15 +17,24 @@ let dist = 1.35
 let pi = CGFloat.pi
 let radius:CGFloat = 2
 
+func createVector(_ lol: SCNVector3) -> SCNVector3 {
+    let length = sqrt(lol.x * lol.x + lol.y * lol.y + lol.z + lol.z)
+    if length == 0 {
+        return SCNVector3(0.0, 0.0, 0.0)
+    }
+    return SCNVector3(lol.x / length, lol.y / length, lol.z / length)
+}
 
-class bezierCurves: SCNScene {
-    
-    override init() {
-        super.init()
-        
-        var lineWidth: CGFloat // (stroke)
-        
 
+        
+extension SCNNode {
+    func bezierCurves(from startPoint: SCNVector3,
+                      to endPoint: SCNVector3,
+                      radius: CGFloat,
+                      color: UIColor) -> SCNNode {
+        
+       
+        var lineWidth: CGFloat = 1// (stroke)
         
         func asin(z: CGFloat) -> CGFloat {
             _ = CGFloat.random(in: -2 ..< 2)
@@ -44,7 +53,7 @@ class bezierCurves: SCNScene {
         let randomDist4 = CGFloat.random(in: -1.35 ..< 1.35)
         let randomDist5 = CGFloat.random(in: -1.35 ..< 1.35)
         let randomDist6 = CGFloat.random(in: -1.35 ..< 1.35)
-
+        
         // 3D equivalent to coordinates on a circle
         let x1 = radius * cos(theta) * cos(phi1)
         let y1 = radius * cos(theta) * sin(phi1)
@@ -53,33 +62,54 @@ class bezierCurves: SCNScene {
         let y2 = radius * cos(theta) * sin(phi2)
         let z2 = radius * sin(theta)
         
-     // Overall method to draw a 2D bezier curve (example)
-
-        func createLines() {
-            var path: UIBezierPath
-            path = UIBezierPath()
-            
-            let cyanMaterial = SCNMaterial()
-            cyanMaterial.diffuse.contents = UIColor.green
-            
-            path.move(to: CGPoint(x: 10, y: 3))
-            path.addLine(to: CGPoint(x: 0, y: 0.1))
-            path.addLine(to: CGPoint(x: 0.3, y: 1))
-            path.close()
-            
-            let shape = SCNShape(path: path, extrusionDepth: 0.75)
-            shape.materials = [cyanMaterial]
-            let shapeNode = SCNNode(geometry: shape)
-            shapeNode.position = SCNVector3(x: 0.2, y: 0.75, z: 0.1);
-            self.rootNode.addChildNode(shapeNode)
-            shapeNode.rotation = SCNVector4(x: -1.0, y: -1.0, z: 0.0, w: 0.0)
+        let w = SCNVector3(x: endPoint.x-startPoint.x,
+                           y: endPoint.y-startPoint.y,
+                           z: endPoint.z-startPoint.z)
+        let l = CGFloat(sqrt(w.x * w.x + w.y * w.y + w.z * w.z))
+       
+        if l == 0.0 {
+            //two  points together
+            let sphere = SCNSphere(radius: radius)
+            sphere.firstMaterial?.diffuse.contents = color
+            self.geometry = sphere
+            self.position = startPoint
+            return self
         }
         
+        let cylinder = SCNCylinder(radius: radius, height: l)
+        cylinder.firstMaterial?.diffuse.contents = color
+        self.geometry = cylinder
         
+        //original vector of cylinder above 0,0,0
+        let originalVector = SCNVector3(0, l/2.0, 0)
+        //target vector, in new coordination
+        let newVector = SCNVector3((endPoint.x - startPoint.x)/2.0,
+                                   (endPoint.y - startPoint.y)/2.0,
+                                   (endPoint.z - startPoint.z)/2.0)
+        
+        //axis between two vectors
+        let vectorAxis = SCNVector3((originalVector.x+newVector.x)/2.0,
+                                    (originalVector.y+newVector.y)/2.0,
+                                    (originalVector.z+newVector.z)/2.0)
+        
+        
+        
+        return self
     }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+}
+
+            
+        
 
     
-}
+
+    
+
+        
+        
+
+
+
+
+    
+
