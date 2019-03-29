@@ -8,15 +8,16 @@
 
 import UIKit
 import SceneKit
+import SpriteKit
 
 class FirstScene: SCNScene {
     override init() {
         super.init()
         
         //this for drawLine file only
-        let twoPointsNode1 = SCNNode()
-        self.rootNode.addChildNode(twoPointsNode1.buildLineInTwoPointsWithRotation(
-            from: SCNVector3(1,-1,3), to: SCNVector3( 7,1,7), radius: 0.1, color: .green))
+//        let twoPointsNode1 = SCNNode()
+//        self.rootNode.addChildNode(twoPointsNode1.buildLineInTwoPointsWithRotation(
+//            from: SCNVector3(1,-1,3), to: SCNVector3( 7,1,7), radius: 0.1, color: .green))
         //ends
         
         // THE SPHERE
@@ -34,16 +35,16 @@ class FirstScene: SCNScene {
         spinSphere.fromValue = NSValue(scnVector4: SCNVector4(0, 1, 0, 300))
         spinSphere.toValue = NSValue(scnVector4: SCNVector4(0, 1, 0, 250))
         spinSphere.duration = 430
-        spinSphere.repeatCount = .infinity
+        spinSphere.repeatCount = .greatestFiniteMagnitude
         
-        sphereNode.addAnimation(spinSphere, forKey: "spinaround")
+        sphereNode.addAnimation(spinSphere, forKey: "transform.rotation.z")
         
         // AMBIENT LIGHT
         
         let lightAmbientNode = SCNNode()
         lightAmbientNode.light = SCNLight()
         lightAmbientNode.light?.type = .ambient
-        lightAmbientNode.light?.intensity = 1000
+        lightAmbientNode.light?.intensity = 500 //1000 is probably best
         lightAmbientNode.light?.color = UIColor.white
         
         self.rootNode.addChildNode(lightAmbientNode)
@@ -53,7 +54,7 @@ class FirstScene: SCNScene {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light?.type = .omni
-        lightNode.position = SCNVector3(x: 100, y: 0, z: 30)
+        lightNode.position = SCNVector3(x: 100, y: 0, z: 300) //z:30 is fine too i guess
         lightNode.light?.intensity = 500
         lightNode.light?.color = UIColor.init(white: 1, alpha: 0.7)
         
@@ -61,10 +62,10 @@ class FirstScene: SCNScene {
         let spin2 = CABasicAnimation(keyPath: "rotation")
         spin2.fromValue = NSValue(scnVector4: SCNVector4(-200, 0, 0, 0))
         spin2.toValue = NSValue(scnVector4: SCNVector4(200, 0, 0, 0))
-        spin2.duration = 200
-        spin2.repeatCount = .infinity
+        spin2.duration = 400
+        spin2.repeatCount = .greatestFiniteMagnitude
         
-        lightNode.addAnimation(spin2, forKey: "spinaround")
+        lightNode.addAnimation(spin2, forKey: "transform.spin2.x")
         
         self.rootNode.addChildNode(lightNode)
         
@@ -83,37 +84,48 @@ class FirstScene: SCNScene {
         let spin = CABasicAnimation(keyPath: "rotation")
         spin.fromValue = NSValue(scnVector4: SCNVector4(x: 200, y: 0, z: 0, w: 0))
         spin.toValue = NSValue(scnVector4: SCNVector4(x: -200, y: 0, z: 0, w: 1))
-        spin.duration = 35
-        spin.repeatCount = .infinity
-
-        secondLightNode.addAnimation(spin, forKey: "spinaround")
+        spin.duration = 10
+        spin.timingFunction = CAMediaTimingFunction(controlPoints: 200, 200, 200, 200)
+        spin.repeatCount = .greatestFiniteMagnitude // make it a GOOD LOOP (.infinity ??)
+        spin.repeatDuration = 10
         
-       
+        secondLightNode.addAnimation(spin, forKey: "transform.spin.x") //spinaround
+        //secondLightNode.
+        let group = CAAnimationGroup()
+        group.animations = [spin, spin2, spinSphere]
+        group.duration = .greatestFiniteMagnitude
         
+        //first anchor for the curves
+        var lineAnchor = SCNVector3(x1, y1, z1)
         
-    
-        
-        func createLines() {
-            var path: UIBezierPath
-            path = UIBezierPath()
+        func line(pointA: Float, //or is it float/double ????? it is (no SCNVECTOR3 here??)
+                  pointB: Float,
+                  pointC: Float,
+                  pointD: Float,
+                  pointE: Float,
+                  pointF: Float,
+                  pointG: Float,
+                  pointH: Float,
+                  pointI: Float) -> SCNVector3 {
             
-            //            let cyanMaterial = SCNMaterial()
-            //            cyanMaterial.diffuse.contents = UIColor.green
+            var beLines1 = SCNVector3(x: pointA, y: pointB, z: pointC)
+            var beLines2 = SCNVector3(x: pointD, y: pointE, z: pointF)
+            var beLines3 = SCNVector3(x: pointG, y: pointH, z: pointI)
             
-            path.move(to: CGPoint(x: 1, y: 3))
-            path.addLine(to: CGPoint(x: 0.5, y: 1))
-            path.addLine(to: CGPoint(x: 0.7, y: 3))
-            path.close()
+            var pointA = x1+randomDist1
+            var pointB = y1+randomDist2
+            var pointC = z1+randomDist3
+            var pointD = x2+randomDist4
+            var pointE = y2+randomDist5
+            var pointF = z2+randomDist6
+            var pointG = x2
+            var pointH = y2
+            var pointI = z2
             
-            let shape = SCNShape(path: path, extrusionDepth: 10)
-            shape.firstMaterial?.metalness.contents = SCNMaterial()
-            let shapeNode = SCNNode(geometry: shape)
-            shapeNode.position = SCNVector3(x: 4, y: 7, z: 0);
-            self.rootNode.addChildNode(shapeNode)
-            shapeNode.rotation = SCNVector4(x: -10, y: 9, z: 0, w: 4)
+            // now, do the lines.
             
-            self.rootNode.addChildNode(shapeNode)
-            }
+            return SCNVector3()
+        }
         
         
         

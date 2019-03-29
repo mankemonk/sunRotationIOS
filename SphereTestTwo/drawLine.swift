@@ -1,28 +1,29 @@
+////
+////  drawLine.swift
+////  SphereTestTwo
+////
+////  Created by Théo Germain on 25/03/2019.
+////  Copyright © 2019 Théo Germain. All rights reserved.
+////
 //
-//  drawLine.swift
-//  SphereTestTwo
-//
-//  Created by Théo Germain on 25/03/2019.
-//  Copyright © 2019 Théo Germain. All rights reserved.
-//
-
 import Foundation
 import SceneKit
+import SpriteKit
 
 func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
     let length = sqrt(iv.x * iv.x + iv.y * iv.y + iv.z * iv.z)
     if length == 0 {
         return SCNVector3(0.0, 0.0, 0.0)
     }
-    
+
     return SCNVector3( iv.x / length, iv.y / length, iv.z / length)
-    
+
 }
 
 
     //extension code starts
-    
-    
+
+
     extension SCNNode {
         
         func buildLineInTwoPointsWithRotation(from startPoint: SCNVector3,
@@ -33,7 +34,7 @@ func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
                                y: endPoint.y-startPoint.y,
                                z: endPoint.z-startPoint.z)
             let l = CGFloat(sqrt(w.x * w.x + w.y * w.y + w.z * w.z))
-            
+
             if l == 0.0 {
                 // two points together.
                 let sphere = SCNSphere(radius: radius)
@@ -41,14 +42,14 @@ func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
                 self.geometry = sphere
                 self.position = startPoint
                 return self
-                
+
             }
             
             let cyl = SCNCylinder(radius: radius, height: l)
             cyl.firstMaterial?.diffuse.contents = color
-            
+
             self.geometry = cyl
-            
+
             //original vector of cylinder above 0,0,0
             let ov = SCNVector3(0, l/2.0,0)
             //target vector, in new coordination
@@ -57,7 +58,7 @@ func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
             
             // axis between two vector
             let av = SCNVector3( (ov.x + nv.x)/2.0, (ov.y+nv.y)/2.0, (ov.z+nv.z)/2.0)
-            
+
             //normalized axis vector
             let av_normalized = normalizeVector(av)
             let q0 = Float(0.0) //cos(angel/2), angle is always 180 or M_PI
@@ -84,12 +85,12 @@ func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
             self.transform.m22 = r_m22
             self.transform.m23 = r_m23
             self.transform.m24 = 0.0
-            
+
             self.transform.m31 = r_m31
             self.transform.m32 = r_m32
             self.transform.m33 = r_m33
             self.transform.m34 = 0.0
-            
+
             self.transform.m41 = (startPoint.x + endPoint.x) / 2.0
             self.transform.m42 = (startPoint.y + endPoint.y) / 2.0
             self.transform.m43 = (startPoint.z + endPoint.z) / 2.0

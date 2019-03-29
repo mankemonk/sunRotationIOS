@@ -14,8 +14,37 @@ let num:Int = 7500
 let rx = 0
 let ry = 0
 let dist = 1.35
-let pi = CGFloat.pi
-let radius:CGFloat = 2
+let pi = Float.pi
+let radius:Float = 2
+
+var lineWidth: Float = 1// (stroke)
+
+func asin(z: Float) -> Float {
+    _ = Float.random(in: -2 ..< 2)
+    return (z)
+}
+// VARIABLES
+let z = Float.random(in: -2 ..< 2)
+let phi1 = Float.random(in: 0 ..< pi*2)
+let phi2 = Float.random(in: 0 ..< pi*2)
+let theta = asin(z: z/radius)
+
+// Different random value for each anchor point
+let randomDist1 = Float.random(in: -1.35 ..< 1.35)
+let randomDist2 = Float.random(in: -1.35 ..< 1.35)
+let randomDist3 = Float.random(in: -1.35 ..< 1.35)
+let randomDist4 = Float.random(in: -1.35 ..< 1.35)
+let randomDist5 = Float.random(in: -1.35 ..< 1.35)
+let randomDist6 = Float.random(in: -1.35 ..< 1.35)
+
+// 3D equivalent to coordinates on a circle
+let x1 = radius * cos(theta) * cos(phi1)
+let y1 = radius * cos(theta) * sin(phi1)
+let z1 = radius * sin(theta)
+let x2 = radius * cos(theta) * cos(phi2)
+let y2 = radius * cos(theta) * sin(phi2)
+let z2 = radius * sin(theta)
+
 
 func createVector(_ lol: SCNVector3) -> SCNVector3 {
     let length = sqrt(lol.x * lol.x + lol.y * lol.y + lol.z + lol.z)
@@ -33,34 +62,8 @@ extension SCNNode {
                       radius: CGFloat,
                       color: UIColor) -> SCNNode {
         
-       
-        var lineWidth: CGFloat = 1// (stroke)
         
-        func asin(z: CGFloat) -> CGFloat {
-            _ = CGFloat.random(in: -2 ..< 2)
-            return (z)
-        }
-        // VARIABLES
-        let z = CGFloat.random(in: -2 ..< 2)
-        let phi1 = CGFloat.random(in: 0 ..< pi*2)
-        let phi2 = CGFloat.random(in: 0 ..< pi*2)
-        let theta = asin(z: z/radius)
-        
-        // Different random value for each anchor point
-        let randomDist1 = CGFloat.random(in: -1.35 ..< 1.35)
-        let randomDist2 = CGFloat.random(in: -1.35 ..< 1.35)
-        let randomDist3 = CGFloat.random(in: -1.35 ..< 1.35)
-        let randomDist4 = CGFloat.random(in: -1.35 ..< 1.35)
-        let randomDist5 = CGFloat.random(in: -1.35 ..< 1.35)
-        let randomDist6 = CGFloat.random(in: -1.35 ..< 1.35)
-        
-        // 3D equivalent to coordinates on a circle
-        let x1 = radius * cos(theta) * cos(phi1)
-        let y1 = radius * cos(theta) * sin(phi1)
-        let z1 = radius * sin(theta)
-        let x2 = radius * cos(theta) * cos(phi2)
-        let y2 = radius * cos(theta) * sin(phi2)
-        let z2 = radius * sin(theta)
+//      USE THE ABOVE VARIABLES AND TRANSPOSE THEM DOWN HERE
         
         let w = SCNVector3(x: endPoint.x-startPoint.x,
                            y: endPoint.y-startPoint.y,

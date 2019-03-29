@@ -8,24 +8,27 @@
 
 import UIKit
 import SceneKit
+import SpriteKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//      THIS FOR THE SPHERE
         let scnView = self.view as! SCNView
         scnView.scene = FirstScene()
         
         scnView.backgroundColor = UIColor.black
         
-        scnView.autoenablesDefaultLighting = true
+        scnView.autoenablesDefaultLighting = false
         scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        
+        scnView.showsStatistics = false
         
        
     }
+    
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
